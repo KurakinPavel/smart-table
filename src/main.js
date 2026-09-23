@@ -78,7 +78,7 @@ const applyFiltering = initFiltering(sampleTable.filter.elements, {    // пер
 });
 
 const applySearching = initSearching([
-	sampleTable.header.search
+	sampleTable.header.elements.search
 ]);
 
 const appRoot = document.querySelector('#app');

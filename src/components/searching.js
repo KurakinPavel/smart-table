@@ -5,6 +5,6 @@ export function initSearching(searchField) {
 	const compare = createComparison(defaultRules.skipEmptyTargetValues, rules.searchMultipleFields(searchField, ['date', 'customer', 'seller'], false));
 
 	return (data, state, action) => {
-		return data.filter(row => compare(row, searchField));
+		return data.search(field => compare(field, searchField));
 	};
 }
