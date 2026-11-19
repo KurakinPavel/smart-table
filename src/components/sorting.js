@@ -35,7 +35,9 @@ export function initSorting(columns) {
 				}
 			});
         }
-
-        return sortCollection(data, field, order);
+		if (field && order) {
+			return sortCollection(data, field, order);
+		}
+        return data;
     }
 }
