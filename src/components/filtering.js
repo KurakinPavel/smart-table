@@ -20,8 +20,24 @@ export function initFiltering(elements, indexes) {
 		})
     return (data, state, action) => {
         // @todo: #4.2 — обработать очистку поля
+		if (action && action.name === "clear") {
+			const parent = action.parentElement;
+			if (parent) {
+				const inputFind = parent.querySelector("input");
+				if (inputFind) {
+					inputFind.value = "";
 
+					const fieldName = action.dataset.field;
+					if (fieldName) {
+						state[fieldName] = "";
+					}
+				}
+			}
+		}
         // @todo: #4.5 — отфильтровать данные используя компаратор
-		return data.filter(row => compare(row, state));
+		return data.filter((row) => compare(row, {
+			...state,
+			total: [state.totalFrom, state.totalTo],
+		}));
     }
 }
