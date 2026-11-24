@@ -15,7 +15,6 @@ export function initSorting(columns) {
 				}
 			});
         } else {
-            // @todo: #3.3 — получить выбранный режим сортировки
 			columns.forEach(column => {
 				if (column.dataset.value !== 'none') {
 					field = column.dataset.field;
