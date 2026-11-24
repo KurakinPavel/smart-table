@@ -42,10 +42,9 @@ async function render(action) {
 	let query = {};
 	// let result = [...data]; // копируем для последующего изменения
 	// @todo: использование
-	// result = applyFiltering(result, state, action);
+	query = applyFiltering(query, state, action);
 	// result = applySearching(result, state, action);
 	// result = applySorting(result, state, action);
-	// result = applyPagination(result, state, action);
 	query = applyPagination(query, state, action); // обновляем query
 
 	const { total, items } = await api.getRecords(query);
@@ -79,9 +78,7 @@ const applySorting = initSorting([        // Нам нужно передать 
 	sampleTable.header.elements.sortByTotal
 ]);
 
-// const applyFiltering = initFiltering(sampleTable.filter.elements, {    // передаём элементы фильтра
-// 	searchBySeller: indexes.sellers                                    // для элемента с именем searchBySeller устанавливаем массив продавцов
-// });
+const {applyFiltering, updateIndexes} = initFiltering(sampleTable.filter.elements);
 
 const applySearching = initSearching('search');
 
@@ -90,6 +87,10 @@ appRoot.appendChild(sampleTable.container);
 
 async function init() {
 	const indexes = await api.getIndexes();
+
+	updateIndexes(sampleTable.filter.elements, {
+		searchBySeller: indexes.sellers
+	});
 }
 
 // render();
